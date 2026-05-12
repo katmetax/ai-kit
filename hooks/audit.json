@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "npm audit --audit-level=high" }
+        ]
+      }
+    ]
+  }
+}

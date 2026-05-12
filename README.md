@@ -1,1 +1,97 @@
-# ai-kit
+# AI Kit
+
+A hub of all my AI related files to help me collate anything and everything I've found useful for guiding AI agents to produce better code and be a better assistant.
+
+# Structure
+
+```
+ai-kit/
+├── CLAUDE.md            ← entry-point template; copy to project root
+├── rules/               
+│   ├── code-style.md
+│   ├── testing.md
+│   ├── commits.md
+│   ├── debugging.md
+│   ├── accessibility.md
+│   └── security.md
+├── hooks/               
+│   ├── verify.json      → runs typecheck + tests on Stop
+│   └── audit.json       → runs npm audit on Stop
+└── skills/              
+    ├── quality.md       
+    └── pr.md            
+```
+
+# Usage
+
+There a different AI IDEs and extensions out there. Below are some pointers as to how to use what is in this repo across the different platforms.
+
+## Claude
+
+This is my go-to AI coding assistant for personal projects so the usage instructions for this are much more extensive than the rest.
+
+`CLAUDE.md`: Claude reads it at the start of every session and treats it as context, not enforced configuration. The more specific and concise your instructions, the more consistently Claude follows them.
+
+Four scopes, loaded additively (not overriding):
+
+
+| File | Scope |  
+|---|---|
+| `~/.claude/CLAUDE.md` | Global — all your projects |
+| `/project-root/CLAUDE.md` | Project-wide, committed to git |
+| `/project-root/CLAUDE.local.md` | Personal/gitignored overrides. For personal quirks (preferred test data, sandbox URLs, shortcut commands) |
+| `/project-root/subdir/CLAUDE.md` | Directory-specific rules |
+
+All rules apply simultaneously, with more specific levels overriding on conflicts.
+
+`rules/` subdirectory:
+Keep CLAUDE.md under 200 lines — beyond that, Claude's compliance with instructions starts to degrade. Break complex rules into `.claude/rules/` subdirectory files and use CLAUDE.md only for core instructions and an index. All markdown files in the .claude/rules/ directory are automatically loaded into Claude Code's context when launched.
+
+### Hooks
+
+Hooks are shell commands Claude runs automatically in response to events. They enforce behaviour that you don't want to rely on Claude choosing to follow — unlike CLAUDE.md instructions, hooks can't be forgotten or skipped.
+
+Configured in `.claude/settings.json` (project) or `~/.claude/settings.json` (global).
+
+**Key events:**
+
+| Event | When it runs |
+|---|---|
+| `Stop` | When Claude finishes its response — good for verify/audit steps |
+| `PostToolUse` | After every individual tool call — good for per-edit formatting |
+| `PreToolUse` | Before a tool call — can block it by exiting non-zero |
+
+**When to use hooks vs rules:**
+Use a hook when the action is a shell command that should *always* run regardless of what Claude does. Use a rule (CLAUDE.md instruction) when the behaviour requires AI judgment.
+
+The `hooks/` directory in this repo contains ready-to-use examples:
+
+| Hook file | What it does |
+|---|---|
+| `hooks/verify.json` | Runs typecheck + tests on `Stop` |
+| `hooks/audit.json` | Runs `npm audit` on `Stop` |
+
+Copy the hook file content into your project's `.claude/settings.json`. If you need multiple hooks, merge their `Stop` arrays into a single `hooks` object.
+
+### Custom Commands
+
+Custom commands are reusable slash commands you trigger by typing `/command-name` in Claude. They run a predefined prompt, making repetitive tasks (quality reviews, PR descriptions) one-keystroke invocations.
+
+To activate a skill from this repo, copy it from `skills/` into `.claude/commands/` at your project root. For commands you want available in every project, copy to `~/.claude/commands/` instead.
+
+The filename becomes the command name:
+
+| Skill file | Copy to | Invoke with |
+|---|---|---|
+| `skills/quality.md` | `.claude/commands/quality.md` | `/quality` |
+| `skills/pr.md` | `.claude/commands/pr.md` | `/pr` |
+
+
+## Cursor
+
+`.cursor/rules/`: folder of .mdc files, each scoped to file patterns (e.g. only applies when editing *.vue files). These are editor-level and trigger contextually based on what file you're working in.
+
+
+## Github Copilot
+
+`.github/copilot-instructions.md`: GitHub Copilot's equivalent — a single markdown file at that path that applies repo-wide instructions to Copilot Chat

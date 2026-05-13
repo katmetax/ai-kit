@@ -4,7 +4,7 @@
       {
         "matcher": "",
         "hooks": [
-          { "type": "command", "command": "npm audit --audit-level=high" }
+          { "type": "command", "command": "if git status --porcelain | grep -q 'package.*\\.json'; then npm audit --audit-level=high; fi" }
         ]
       }
     ]

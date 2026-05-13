@@ -1,12 +1,3 @@
-# Code Guidelines
-
-@rules/code-style.md
-@rules/testing.md
-@rules/commits.md
-@rules/debugging.md
-@rules/accessibility.md
-@rules/security.md
-
 ## Code Quality
 When editing any file:
 - Remove unused imports, variables, and dead code

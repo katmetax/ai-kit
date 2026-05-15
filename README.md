@@ -22,6 +22,16 @@ ai-kit/
     └── pr.md            
 ```
 
+# Export
+
+Generate platform-ready files into an `export/` folder (gitignored), then copy its contents into your project root.
+
+```sh
+./export.sh claude    # CLAUDE.md, .claude/rules/, .claude/commands/, .claude/settings.json
+./export.sh cursor    # .cursor/rules/
+./export.sh copilot   # .github/copilot-instructions.md
+```
+
 # Usage
 
 There a different AI IDEs and extensions out there. Below are some pointers as to how to use what is in this repo across the different platforms.

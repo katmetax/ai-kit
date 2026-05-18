@@ -19,6 +19,7 @@ ai-kit/
 │   └── audit.json       → runs npm audit on Stop
 └── skills/              
     ├── quality.md       
+    ├── write_tests.md   
     └── pr.md            
 ```
 
@@ -85,6 +86,7 @@ The filename becomes the command name:
 |---|---|---|
 | `skills/quality.md` | `.claude/commands/quality.md` | `/quality` |
 | `skills/pr.md` | `.claude/commands/pr.md` | `/pr` |
+| `skills/write_tests.md` | `.claude/commands/write_tests.md` | `/write_tests <target>` |
 
 
 ## Cursor

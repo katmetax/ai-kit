@@ -1,6 +1,8 @@
 # AI Kit
 
-A hub of all my AI related files to help me collate anything and everything I've found useful for guiding AI agents to produce better code and be a better assistant.
+A hub of all my AI related files to help me collate anything and everything I've found useful for guiding AI agents to produce better code and be a better assistant. 
+
+This is still a work in progress as I am discovering what works well and what doesn't through trial and error.
 
 # Structure
 
@@ -97,3 +99,19 @@ The filename becomes the command name:
 ## Github Copilot
 
 `.github/copilot-instructions.md`: GitHub Copilot's equivalent — a single markdown file at that path that applies repo-wide instructions to Copilot Chat
+
+# Marketplace
+
+Below are AI plugins that I have either been recommended or I have tried and liked.
+
+Tried and liked:
+
+- A single CLAUDE.md file to improve Claude Code behavior: [Karpathy-Inspired Claude Code Guidelines](https://github.com/multica-ai/andrej-karpathy-skills/tree/main)
+
+Recommendations:
+
+- A complete system: skills, instincts, memory optimization, continuous learning, security scanning, and research-first development. Production-ready agents, skills, hooks, rules, MCP configurations, and legacy command shims: [Everything Claude Code](https://github.com/affaan-m/everything-claude-code)
+
+- A complete software development methodology for your coding agents: [Superpowers](https://github.com/obra/superpowers)
+
+-  Open source version of Claude Design: [Open Design](https://github.com/nexu-io/open-design)

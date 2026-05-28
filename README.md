@@ -19,9 +19,10 @@ ai-kit/
 ├── hooks/               
 │   ├── verify.json      → runs typecheck + tests on Stop
 │   └── audit.json       → runs npm audit on Stop
-└── skills/              
+└── skills/     
+    ├── accessibility.md   → taken from https://awesome-copilot.github.com/
     ├── quality.md       
-    ├── write_tests.md   
+    ├── tests.md   
     └── pr.md            
 ```
 
@@ -86,9 +87,10 @@ The filename becomes the command name:
 
 | Skill file | Copy to | Invoke with |
 |---|---|---|
+| `skills/accessibility.md` | `.claude/commands/accessibility.md` | `/accessibility` |
 | `skills/quality.md` | `.claude/commands/quality.md` | `/quality` |
 | `skills/pr.md` | `.claude/commands/pr.md` | `/pr` |
-| `skills/write_tests.md` | `.claude/commands/write_tests.md` | `/write_tests <target>` |
+| `skills/tests.md` | `.claude/commands/tests.md` | `/tests <target>` |
 
 
 ## Cursor

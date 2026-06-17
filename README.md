@@ -10,20 +10,25 @@ This is still a work in progress as I am discovering what works well and what do
 ai-kit/
 ├── CLAUDE.md            → entry-point template; copy to project root
 ├── rules/               
-│   ├── code-style.md
-│   ├── testing.md
-│   ├── commits.md
-│   ├── debugging.md
 │   ├── accessibility.md
-│   └── security.md
+│   ├── code-style.md
+│   ├── components.md
+│   ├── debugging.md
+│   ├── security.md
+│   └── testing.md
 ├── hooks/               
 │   ├── verify.json      → runs typecheck + tests on Stop
 │   └── audit.json       → runs npm audit on Stop
-└── skills/     
-    ├── accessibility.md   → taken from https://awesome-copilot.github.com/
-    ├── quality.md       
-    ├── tests.md   
-    └── pr.md            
+├── commands/            → slash commands (/command-name)
+│   ├── quality.md       
+│   └── tests.md         
+└── skills/              → Claude Code skills (subdirectory format)
+    ├── accessibility-guide/
+    │   └── SKILL.md     → taken from https://awesome-copilot.github.com/
+    ├── commit-message/
+    │   └── SKILL.md     
+    └── create-pr/
+        └── SKILL.md     
 ```
 
 # Export
@@ -81,16 +86,26 @@ Use a hook when the action is a shell command that should *always* run regardles
 
 Custom commands are reusable slash commands you trigger by typing `/command-name` in Claude. They run a predefined prompt, making repetitive tasks (quality reviews, PR descriptions) one-keystroke invocations.
 
-To activate a skill from this repo, copy it from `skills/` into `.claude/commands/` at your project root. For commands you want available in every project, copy to `~/.claude/commands/` instead.
+To activate a command from this repo, copy it from `commands/` into `.claude/commands/` at your project root. For commands you want available in every project, copy to `~/.claude/commands/` instead.
 
 The filename becomes the command name:
 
-| Skill file | Copy to | Invoke with |
+| Command file | Copy to | Invoke with |
 |---|---|---|
-| `skills/accessibility.md` | `.claude/commands/accessibility.md` | `/accessibility` |
-| `skills/quality.md` | `.claude/commands/quality.md` | `/quality` |
-| `skills/pr.md` | `.claude/commands/pr.md` | `/pr` |
-| `skills/tests.md` | `.claude/commands/tests.md` | `/tests <target>` |
+| `commands/quality.md` | `.claude/commands/quality.md` | `/quality` |
+| `commands/tests.md` | `.claude/commands/tests.md` | `/tests <target>` |
+
+### Skills
+
+Skills are Claude Code's built-in skill system — each skill lives in its own subdirectory with a `SKILL.md` file containing frontmatter metadata that Claude Code uses to register and invoke it.
+
+Copy the skill folder from `skills/` into `.claude/skills/` at your project root. For skills you want available in every project, copy to `~/.claude/skills/` instead.
+
+| Skill folder | Copy to |
+|---|---|
+| `skills/accessibility-guide/` | `.claude/skills/accessibility-guide/` |
+| `skills/commit-message/` | `.claude/skills/commit-message/` |
+| `skills/create-pr/` | `.claude/skills/create-pr/` |
 
 
 ## Cursor

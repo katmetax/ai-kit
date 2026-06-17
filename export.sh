@@ -21,11 +21,12 @@ rm -rf "$EXPORT_DIR"
 
 case "$PLATFORM" in
   claude)
-    mkdir -p "$EXPORT_DIR/.claude/rules" "$EXPORT_DIR/.claude/commands"
+    mkdir -p "$EXPORT_DIR/.claude/rules" "$EXPORT_DIR/.claude/commands" "$EXPORT_DIR/.claude/skills"
 
     cp CLAUDE.md "$EXPORT_DIR/CLAUDE.md"
     cp rules/*.md "$EXPORT_DIR/.claude/rules/"
-    cp skills/*.md "$EXPORT_DIR/.claude/commands/"
+    cp commands/*.md "$EXPORT_DIR/.claude/commands/"
+    cp -r skills/* "$EXPORT_DIR/.claude/skills/"
 
     python3 - <<'EOF'
 import json, glob

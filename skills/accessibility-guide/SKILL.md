@@ -1,6 +1,6 @@
 ---
-applyTo: '**'
-description: 'Comprehensive web accessibility standards based on WCAG 2.2 AA, with 38+ anti-patterns, legal enforcement context (EAA, ADA Title II), WAI-ARIA patterns, and framework-specific fixes for modern web frameworks and libraries.'
+name: accessibility-guide
+description: Comprehensive web accessibility standards based on WCAG 2.2 AA, with 38+ anti-patterns, legal enforcement context (EAA, ADA Title II), WAI-ARIA patterns, and framework-specific fixes for modern web frameworks and libraries.
 ---
 
 # Accessibility Standards
@@ -528,118 +528,21 @@ Never autoplay audio. If video autoplays, start muted with controls.
 
 ---
 
-## Framework-Specific: React / Next.js (RX1-RX4)
+## Framework-Specific: React / Next.js
 
-### RX1: Missing `htmlFor` on `<label>`
-
-- **Severity**: IMPORTANT
-- **Detection**: `<label.*for="` in JSX (should be `htmlFor`)
-- **WCAG**: 1.3.1 (A), 3.3.2 (A)
-
-### RX2: SPA Route Change Without Focus Management
-
-- **Severity**: IMPORTANT
-- **Detection**: Navigation without focus management or live region
-- **WCAG**: 4.1.3 (AA)
-
-After route change, focus the main heading or announce the new page title via a live region. Next.js includes a built-in route announcer (since v13) that reads `document.title`, then `<h1>`, then pathname. Ensure every page has a unique `<title>`.
-
-### RX3: Fragment Root Causing Focus Loss on Re-render
-
-- **Severity**: SUGGESTION
-- **Detection**: `<>...</>` root with conditional rendering causing DOM restructuring
-- **WCAG**: 2.4.3 (A)
-
-Use `key` prop to preserve DOM identity, or manually restore focus with `useRef` + `useEffect`.
-
-### RX4: Injected HTML Without ARIA Consideration
-
-- **Severity**: IMPORTANT
-- **Detection**: Rich text rendering without accessibility validation
-- **WCAG**: 1.3.1 (A)
-
-Sanitize and validate injected HTML for heading hierarchy, alt text, and ARIA structure.
+**Only load if the project's tech stack uses React/Next** See [react-next-guide](references/react-next-guide.md).
 
 ---
 
-## Framework-Specific: Angular (NG1-NG4)
+## Framework-Specific: Vue
 
-### NG1: `(click)` on `<div>` Without Role and Keyboard Support
-
-- **Severity**: CRITICAL
-- **Detection**: `(click)` on `<div>` or `<span>` without `role=`, `tabindex`, `(keydown)`
-- **WCAG**: 2.1.1 (A), 4.1.2 (A)
-
-Use `<button>`. If div required: add `role="button"`, `tabindex="0"`, `(keydown.enter)`, `(keydown.space)`.
-
-### NG2: Missing `cdkTrapFocus` in Modal Components
-
-- **Severity**: IMPORTANT
-- **Detection**: Modal components without `cdkTrapFocus`
-- **WCAG**: 2.1.2 (A)
-
-```html
-<div class="modal" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">...</div>
-```
-
-Angular CDK's `Dialog` service handles focus trapping and restoration automatically.
-
-### NG3: Route Change Without LiveAnnouncer
-
-- **Severity**: IMPORTANT
-- **Detection**: Angular Router navigation without `LiveAnnouncer`
-- **WCAG**: 4.1.3 (AA)
-
-```typescript
-router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
-  liveAnnouncer.announce(titleService.getTitle(), 'polite');
-});
-```
-
-### NG4: Template-Driven Forms Without Accessible Validation
-
-- **Severity**: IMPORTANT
-- **Detection**: Forms showing errors without `[attr.aria-invalid]` or `[attr.aria-describedby]`
-- **WCAG**: 3.3.1 (A), 3.3.3 (AA)
-
-Bind `[attr.aria-invalid]` and `[attr.aria-describedby]` to form control state.
+**Only load if the project's tech stack uses Vue** See [vue-guide](references/vue-guide.md).
 
 ---
 
-## Framework-Specific: Vue (VU1-VU3)
+## Framework-Specific: Angular
 
-### VU1: `@click` on Non-Interactive Element Without Role and Keyboard
-
-- **Severity**: CRITICAL
-- **Detection**: `@click` on `<div>` or `<span>` without `role=`, `tabindex`, `@keydown`
-- **WCAG**: 2.1.1 (A), 4.1.2 (A)
-
-Use `<button>`. Or add `role="button"`, `tabindex="0"`, `@keydown.enter`, `@keydown.space.prevent`.
-
-### VU2: `v-if` Toggle Without Focus Management
-
-- **Severity**: IMPORTANT
-- **Detection**: `v-if` toggling without managing focus via `nextTick`
-- **WCAG**: 2.4.3 (A)
-
-```vue
-<script setup>
-import { ref, watch, nextTick } from 'vue';
-const showPanel = ref(false);
-const panel = ref(null);
-watch(showPanel, async (val) => {
-  if (val) { await nextTick(); panel.value?.focus(); }
-});
-</script>
-```
-
-### VU3: `v-html` Injecting Content Without Accessible Structure
-
-- **Severity**: IMPORTANT
-- **Detection**: `v-html` rendering user or CMS content
-- **WCAG**: 1.3.1 (A)
-
-Sanitize and validate HTML for heading hierarchy, alt text, and ARIA structure before injection.
+**Only load if the project's tech stack uses Angular** See [angular-guide](references/angular-guide.md).
 
 ---
 
